@@ -1,5 +1,5 @@
-# HeismanModel
-Kevin Mohammed and Oscar Colindres Heisman Predictor
+# Conference Model
+Kevin Mohammed and Oscar Colindres Conference Predictor
 
 Priority Links: 
 
