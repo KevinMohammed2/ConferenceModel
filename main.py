@@ -78,11 +78,23 @@ print(records)
 """
 
 # ranking big 12 schools from first to last based on current record 
+# Ask user what they would like to know and answer the question using the ML model 
+# use the team name to autofill Conference IE Florida is SEC no need to ask the user 
 
 def get_currRec_data(year, team, confer):
   url = f'https://api.collegefootballdata.com/records?year={year}&team={team}&conference={confer}'
   headers = {'Authorization': 
    'Bearer /PCWShwQUVu2KcOmIA0UoA/04MRAffVT0QG+3hb4m0g0Ug3txcvhnapqf1CuYOf2'}
+  response = requests.get(url, headers=headers)
+  if response.status_code == 200:
+    return response.json()
+  else:
+    print(f'Error: {response.status_code}')
+    return None
+def team_talent(year):
+  url = f'https://api.collegefootballdata.com/talent?year={year}'
+  headers = {'Authorization': 
+ 'Bearer /PCWShwQUVu2KcOmIA0UoA/04MRAffVT0QG+3hb4m0g0Ug3txcvhnapqf1CuYOf2'}
   response = requests.get(url, headers=headers)
   if response.status_code == 200:
     return response.json()
@@ -114,7 +126,7 @@ year = 2024
 team = str(input("Enter a team: "))
 confer = str(input("Enter a conference: "))
 
-
+current_talent = team_talent(year)
 records = get_currRec_data(year, team, confer)
 newRecords = retrieve_team_info(records)
 
@@ -123,7 +135,10 @@ losses = newRecords[2]['losses']
 ties = newRecords[2]['ties']
 expected_wins = newRecords[1]
 
-print("record:", wins, '-', losses, '-', ties, 'expected wins:', expected_wins)
+print("record:", wins, '-', losses, '-', ties, 'expected wins:', expected_wins, current_talent)
+
+
+
 
 # what to add next: 
 # for loop that would make a new list of the teams based on the conference the user inputs
