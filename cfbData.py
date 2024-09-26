@@ -90,9 +90,7 @@ print(records)
 # use the team name to autofill Conference IE Florida is SEC no need to ask the user 
 
 # Definition to return the current records per team
-def get_singleTeamRec_data(year, team, confer):
-  with open("key.txt", "r") as f:
-      key = f.readline().strip()
+def get_singleTeamRec_data(year, team, confer, key):
   url = f'https://api.collegefootballdata.com/records?year={year}&team={team}&conference={confer}'
   headers = {'Authorization': f'{key}'}
   response = requests.get(url, headers=headers)
@@ -103,9 +101,7 @@ def get_singleTeamRec_data(year, team, confer):
     return None
 
 # Definition to return the current records per conference 
-def get_specificConference_data(year, confer):
-  with open("key.txt", "r") as f:
-      key = f.readline().strip()
+def get_specificConference_data(year, confer, key):
   url = f'https://api.collegefootballdata.com/records?year={year}&conference={confer}'
   headers = {'Authorization': f'{key}'}
   response = requests.get(url, headers=headers)
@@ -116,9 +112,7 @@ def get_specificConference_data(year, confer):
     return None
 
 # Definition to return all team records
-def get_allTeamRec_data(year):
-  with open("key.txt", "r") as f:
-      key = f.readline().strip()
+def get_allTeamRec_data(year, key):
   url = f'https://api.collegefootballdata.com/records?year={year}'
   headers = {'Authorization': f'{key}'}
   response = requests.get(url, headers=headers)
@@ -132,9 +126,7 @@ def get_allTeamRec_data(year):
 # Definition to return the talent scores per team
 import requests
 
-def get_talent(year):
-  with open("key.txt", "r") as f:
-      key = f.readline().strip()
+def get_talent(year, key):
   url = f'https://api.collegefootballdata.com/talent?year={year}'
   headers = {'Authorization': f'{key}'}  # Assuming 'Bearer' is needed
   response = requests.get(url, headers=headers)
@@ -174,6 +166,8 @@ def team_power_rank(year, team):
   else:
    return "No Rating Found"
 
+apiKey = str(input("Enter your API key: "))
+
 year = 2024
 # team = str(input("Enter a team: "))
 confer = str(input("Enter a conference: "))
@@ -204,7 +198,7 @@ conferData[example] = {'school' = example, 'record' = 0-0-0'...}
 # organizedConfRecs will be an array of dictionaries
 organizedConfRecs = []
 # Specific Conference will be an array of dictionaries
-specificConferenceRec = get_specificConference_data(year, confer)
+specificConferenceRec = get_specificConference_data(year, confer, apiKey)
 # traverse through specificConferenceRec and store in organizedConfRecs
 for teamData in specificConferenceRec:
   teamInfo = retrieve_team_info([teamData])
@@ -218,11 +212,14 @@ with open('conferenceData.csv', 'w', newline='') as csvfile:
     for team in organizedConfRecs:
         writer.writerow([team[0], team[1], team[2], team[3], team[4], team[5]])
 
+
 # Rank the teams based on their current record
+
+# newRecords = sorted(organizedConfRecs, key=lambda x: x[2], reverse=True)
+# print(newRecords)
 
 # for team in organizedConfRecs:
 #   print(team[0], team[2])
-
 
 
 # print(organizedConfRecs[0][0])
