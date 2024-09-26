@@ -1,1 +1,17 @@
-Team,Expected Wins,Total Wins,Total Losses,Conference Wins,Conference Losses,Home Wins,Home Losses,Away Wins,Away Losses
+Team,Expected Wins,Total Wins,Conference Games,Home Games,Away Games
+Arizona State,2.3,"{'games': 4, 'wins': 3, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}"
+Arizona,2,"{'games': 3, 'wins': 2, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}"
+Colorado,1.7,"{'games': 4, 'wins': 3, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}"
+Iowa State,2.8,"{'games': 3, 'wins': 3, 'losses': 0, 'ties': 0}","{'games': 0, 'wins': 0, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}"
+Oklahoma State,2.1,"{'games': 4, 'wins': 3, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}","{'games': 3, 'wins': 2, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}"
+Baylor,2.8,"{'games': 4, 'wins': 2, 'losses': 2, 'ties': 0}","{'games': 2, 'wins': 0, 'losses': 2, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 0, 'losses': 2, 'ties': 0}"
+Houston,2,"{'games': 4, 'wins': 1, 'losses': 3, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 0, 'losses': 2, 'ties': 0}"
+BYU,3.3,"{'games': 4, 'wins': 4, 'losses': 0, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}"
+Utah,3.8,"{'games': 4, 'wins': 4, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}"
+West Virginia,1.8,"{'games': 4, 'wins': 2, 'losses': 2, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}","{'games': 3, 'wins': 2, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}"
+UCF,3,"{'games': 3, 'wins': 3, 'losses': 0, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}"
+Cincinnati,3.1,"{'games': 4, 'wins': 3, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}","{'games': 3, 'wins': 2, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}"
+Kansas,2.9,"{'games': 4, 'wins': 1, 'losses': 3, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}","{'games': 0, 'wins': 0, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 0, 'losses': 2, 'ties': 0}"
+Kansas State,3.3,"{'games': 4, 'wins': 3, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 2, 'losses': 0, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}"
+TCU,1.9,"{'games': 4, 'wins': 2, 'losses': 2, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}","{'games': 2, 'wins': 1, 'losses': 1, 'ties': 0}"
+Texas Tech,1.8,"{'games': 4, 'wins': 3, 'losses': 1, 'ties': 0}","{'games': 1, 'wins': 1, 'losses': 0, 'ties': 0}","{'games': 3, 'wins': 3, 'losses': 0, 'ties': 0}","{'games': 1, 'wins': 0, 'losses': 1, 'ties': 0}"
