@@ -41,48 +41,11 @@ import requests
 api.collegefootballdata.com/calendar
 """
 
-"""
-Template for pulling the Conferences/Using the API
-def get_conferences_data():
-    url = f'https://api.collegefootballdata.com/records?'
-  headers = {'Authorization': f'{key}'}
-  response = requests.get(url, headers=headers)
-  if response.status_code == 200:
-    return response.json()
-  else:
-    print(f'Error: {response.status_code}')
-    return None
-
-
-
-conferences = get_conferences_data()
-print(conferences)
-"""
 
 # parameters = year, team, conferences 
 # example: year = 2024, team = 'UCF', conference = B12
 # print out only
 
-"""
-def get_records_data(year, team, confer):
-    url = f'https://api.collegefootballdata.com/records?team={team}&conference={confer}'
-  headers = {'Authorization': f'{key}'}
-  response = requests.get(url, headers=headers)
-  if response.status_code == 200:
-    return response.json()
-  else:
-    print(f'Error: {response.status_code}')
-    return None
-
-
-year = int(input("Enter the year: "))
-team = str(input("Enter the team: "))
-confer = str(input("Enter the conference: "))
-
-records = get_records_data(year, team, confer)
-
-print(records)
-"""
 
 # ranking big 12 schools from first to last based on current record 
 # Ask user what they would like to know and answer the question using the ML model 
@@ -127,7 +90,7 @@ import requests
 
 def get_talent(year, key):
   url = f'https://api.collegefootballdata.com/talent?year={year}'
-  headers = {'Authorization': f'{key}'}  # Assuming 'Bearer' is needed
+  headers = {'Authorization': f'{key}'}  
   response = requests.get(url, headers=headers)
   if response.status_code == 200:
       return response.json()
@@ -135,7 +98,8 @@ def get_talent(year, key):
       print(f'Error: {response.status_code}')
       return None
 
-# Definition to sort the team records per team
+
+# Definition to return the talent scores per team
 def retrieve_team_info(records):
     team_info = {}
 
@@ -146,9 +110,9 @@ def retrieve_team_info(records):
         team_confGms = record['conferenceGames']
         team_homeGms = record['homeGames']
         team_awayGms = record['awayGames']
-        
-        # Populate the team_info dictionary with the structured data
-        team_info[team_name] = {
+
+        # Create a dictionary with the relevant data
+        team_info = {
             'team': team_name,
             'expectedWins': team_expWins,
             'totalGames': {
@@ -168,15 +132,11 @@ def retrieve_team_info(records):
                 'losses': team_awayGms['losses']
             }
         }
-
     return team_info
 
-    # team_info[1] = team_expWins
-    # team_info[2] = team_totalWins
-    # team_info[3] = team_confGms
-    # team_info[4] = team_homeGms
-    # team_info[5] = team_awayGms
-    
+
+# Specific Conference will be an array of dictionaries
+
 
 # power ranking
 def team_power_rank(year, team):
@@ -190,7 +150,7 @@ def team_power_rank(year, team):
 apiKey = str(input("Enter your API key: "))
 
 year = 2024
-#team = str(input("Enter a team: "))
+# team = str(input("Enter a team: "))
 confer = str(input("Enter a conference: "))
 
 # Talent Score
@@ -202,31 +162,17 @@ confer = str(input("Enter a conference: "))
 # Newly Sorted
 # newRecords = retrieve_team_info(oneTeamRec)
 
-
-
 # Specific Conference Record
 # make organizedConfRecs an array of dictionaries that would store the conf info that we pull from this function
 
-"""
-Conference = Big 12
-conferData [{}, {}, {}, {}, {}] -> Array of Dictionaries
 
-conferData = [UCF, Colorado, Houston, Baylor, Utah] -> [0, 1, 2, 3, 4]
-conferData[0] = {'school' = UCF, 'record' = 3-0-0'...}
-conferData[example] = {'school' = example, 'record' = 0-0-0'...}
-
-"""
-
-# Specific Conference Call
-# organizedConfRecs will be an array of dictionaries
 organizedConfRecs = []
-# Specific Conference will be an array of dictionaries
 specificConferenceRec = get_specificConference_data(year, confer, apiKey)
-# traverse through specificConferenceRec and store in organizedConfRecs
+
+# Traverse through specificConferenceRec and store in organizedConfRecs
 for teamData in specificConferenceRec:
-  teamInfo = retrieve_team_info([teamData])
-  organizedConfRecs.append(teamInfo)
-# print(organizedConfRecs)
+    teamInfo = retrieve_team_info([teamData])
+    organizedConfRecs.append(teamInfo)
 
 # Put this data into a .csv
 with open('conferenceData.csv', 'w', newline='') as csvfile:
@@ -250,18 +196,6 @@ with open('conferenceData.csv', 'w', newline='') as csvfile:
             team['awayGames']['losses']            # Away Losses
         ])
 
-
-# Rank the teams based on their current record
-
-# newRecords = sorted(organizedConfRecs, key=lambda x: x[2], reverse=True)
-# print(newRecords)
-
-# for team in organizedConfRecs:
-#   print(team[0], team[2])
-
-
-# print(organizedConfRecs[0][0])
-# print(organizedConfRecs[0][2])
 
 # All Team Records Call
 # organizedRecs = []
