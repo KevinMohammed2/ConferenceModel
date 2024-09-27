@@ -137,7 +137,6 @@ def retrieve_team_info(records):
 
 # Specific Conference will be an array of dictionaries
 
-
 # power ranking
 def team_power_rank(year, team):
   talents = get_talent(year)
@@ -173,6 +172,12 @@ specificConferenceRec = get_specificConference_data(year, confer, apiKey)
 for teamData in specificConferenceRec:
     teamInfo = retrieve_team_info([teamData])
     organizedConfRecs.append(teamInfo)
+    
+print(organizedConfRecs)
+
+organizedConfRecs = sorted(organizedConfRecs, key=lambda x: (x['totalGames']['wins'], x['totalGames']['losses']), reverse=True)
+for team in organizedConfRecs:
+  print(team['team'] + ": " + str(team['totalGames']['wins']) + "-" + str(team['totalGames']['losses']))
 
 # Put this data into a .csv
 with open('conferenceData.csv', 'w', newline='') as csvfile:
@@ -195,6 +200,12 @@ with open('conferenceData.csv', 'w', newline='') as csvfile:
             team['awayGames']['wins'],             # Away Wins
             team['awayGames']['losses']            # Away Losses
         ])
+
+# sorted by total wins:
+# sorted() sorts in ascending order
+# key = lambda x: x['totalGames']['wins'] where lambda is a an anonymous function that will be used to sort by the wins
+# reverse = True will sort in descending order
+
 
 
 # All Team Records Call
