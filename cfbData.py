@@ -110,6 +110,9 @@ def retrieve_team_info(records):
         team_confGms = record['conferenceGames']
         team_homeGms = record['homeGames']
         team_awayGms = record['awayGames']
+        # conferenceGames = get total conference games
+        # total P4 conference games
+        # other out of P4 conference games
 
         # Create a dictionary with the relevant data
         team_info = {
@@ -175,6 +178,11 @@ for teamData in specificConferenceRec:
     
 print(organizedConfRecs)
 
+
+# sorted by total wins:
+# sorted() sorts in ascending order
+# key = lambda x: x['totalGames']['wins'] where lambda is a an anonymous function that will be used to sort by the wins
+# reverse = True will sort in descending order
 organizedConfRecs = sorted(organizedConfRecs, key=lambda x: (x['totalGames']['wins'], x['totalGames']['losses']), reverse=True)
 for team in organizedConfRecs:
   print(team['team'] + ": " + str(team['totalGames']['wins']) + "-" + str(team['totalGames']['losses']))
@@ -201,12 +209,7 @@ with open('conferenceData.csv', 'w', newline='') as csvfile:
             team['awayGames']['losses']            # Away Losses
         ])
 
-# sorted by total wins:
-# sorted() sorts in ascending order
-# key = lambda x: x['totalGames']['wins'] where lambda is a an anonymous function that will be used to sort by the wins
-# reverse = True will sort in descending order
-
-
+# Newest Changes
 
 # All Team Records Call
 # organizedRecs = []
