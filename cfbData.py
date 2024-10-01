@@ -84,9 +84,6 @@ def get_allTeamRec_data(year, key):
     print(f'Error: {response.status_code}')
     return None
   
-    
-# Definition to return the talent scores per team
-import requests
 
 def get_talent(year, key):
   url = f'https://api.collegefootballdata.com/talent?year={year}'
@@ -97,7 +94,17 @@ def get_talent(year, key):
   else:
       print(f'Error: {response.status_code}')
       return None
-
+    
+# Definition to return the games' information per team
+def get_specificGame_data(year, seasonType, team, key):
+  url = f'https://api.collegefootballdata.com/games/teams?year={year}&seasonType={seasonType}&team={team}'
+  headers = {'Authorization': f'{key}'}
+  response = requests.get(url, headers=headers)
+  if response.status_code == 200:
+    return response.json()
+  else:
+    print(f'Error: {response.status_code}')
+    return None
 
 # Definition to return the talent scores per team
 def retrieve_team_info(records):
@@ -137,6 +144,160 @@ def retrieve_team_info(records):
         }
     return team_info
 
+def retrieve_conf_info(records):
+  game_info = {}
+
+  for record in records['teams']:
+    team_name = record['school']
+    team_points = record['points']
+    
+    game_info = {
+      'team': team_name,
+      'points': team_points
+    }
+
+  return game_info
+    
+  # {
+    # "id": 401636866,
+    # "teams": [
+    #   {
+    #     "schoolId": 2116,
+    #     "school": "UCF",
+    #     "conference": "Big 12",
+    #     "homeAway": "away",
+    #     "points": 35,
+    #     "stats": [
+    #       {
+    #         "category": "fumblesRecovered",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "rushingTDs",
+    #         "stat": "2"
+    #       },
+    #       {
+    #         "category": "puntReturnYards",
+    #         "stat": "-3"
+    #       },
+    #       {
+    #         "category": "puntReturnTDs",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "puntReturns",
+    #         "stat": "1"
+    #       },
+    #       {
+    #         "category": "passingTDs",
+    #         "stat": "3"
+    #       },
+    #       {
+    #         "category": "kickReturnYards",
+    #         "stat": "13"
+    #       },
+    #       {
+    #         "category": "kickReturnTDs",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "kickReturns",
+    #         "stat": "1"
+    #       },
+    #       {
+    #         "category": "kickingPoints",
+    #         "stat": "3"
+    #       },
+    #       {
+    #         "category": "tacklesForLoss",
+    #         "stat": "1"
+    #       },
+    #       {
+    #         "category": "defensiveTDs",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "tackles",
+    #         "stat": "32"
+    #       },
+    #       {
+    #         "category": "sacks",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "qbHurries",
+    #         "stat": "3"
+    #       },
+    #       {
+    #         "category": "passesDeflected",
+    #         "stat": "4"
+    #       },
+    #       {
+    #         "category": "possessionTime",
+    #         "stat": "32:54"
+    #       },
+    #       {
+    #         "category": "interceptions",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "fumblesLost",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "turnovers",
+    #         "stat": "0"
+    #       },
+    #       {
+    #         "category": "totalPenaltiesYards",
+    #         "stat": "5-45"
+    #       },
+    #       {
+    #         "category": "yardsPerRushAttempt",
+    #         "stat": "5.4"
+    #       },
+    #       {
+    #         "category": "rushingAttempts",
+    #         "stat": "54"
+    #       },
+    #       {
+    #         "category": "rushingYards",
+    #         "stat": "289"
+    #       },
+    #       {
+    #         "category": "yardsPerPass",
+    #         "stat": "10.5"
+    #       },
+    #       {
+    #         "category": "completionAttempts",
+    #         "stat": "13-22"
+    #       },
+    #       {
+    #         "category": "netPassingYards",
+    #         "stat": "230"
+    #       },
+    #       {
+    #         "category": "totalYards",
+    #         "stat": "519"
+    #       },
+    #       {
+    #         "category": "fourthDownEff",
+    #         "stat": "0-0"
+    #       },
+    #       {
+    #         "category": "thirdDownEff",
+    #         "stat": "11-16"
+    #       },
+    #       {
+    #         "category": "firstDowns",
+    #         "stat": "30"
+    #       }
+    #     ]
+    #   }
+    # }
+    
+
+    
 
 # Specific Conference will be an array of dictionaries
 
@@ -152,8 +313,13 @@ def team_power_rank(year, team):
 apiKey = str(input("Enter your API key: "))
 
 year = 2024
+seasonType = "regular"
+team = "UCF"
+confer = "B12"
+
+# User Input
 # team = str(input("Enter a team: "))
-confer = str(input("Enter a conference: "))
+# confer = str(input("Enter a conference: "))
 
 # Talent Score
 # currentTalent = team_power_rank(year, team)
@@ -167,7 +333,19 @@ confer = str(input("Enter a conference: "))
 # Specific Conference Record
 # make organizedConfRecs an array of dictionaries that would store the conf info that we pull from this function
 
+# Specific Conference Call to get all game information
 
+organizedTeamInfo = []
+seasonGameData = get_specificGame_data(year, seasonType, team, apiKey)
+# print(seasonGameData)
+
+for game in seasonGameData:
+  gameInfo = retrieve_conf_info(game)
+  organizedTeamInfo.append(gameInfo)
+
+print(organizedTeamInfo)
+
+"""
 organizedConfRecs = []
 specificConferenceRec = get_specificConference_data(year, confer, apiKey)
 
@@ -176,13 +354,14 @@ for teamData in specificConferenceRec:
     teamInfo = retrieve_team_info([teamData])
     organizedConfRecs.append(teamInfo)
     
-print(organizedConfRecs)
-
+# print(organizedConfRecs)
+"""
 
 # sorted by total wins:
 # sorted() sorts in ascending order
 # key = lambda x: x['totalGames']['wins'] where lambda is a an anonymous function that will be used to sort by the wins
 # reverse = True will sort in descending order
+"""
 organizedConfRecs = sorted(organizedConfRecs, key=lambda x: (x['totalGames']['wins'], x['totalGames']['losses']), reverse=True)
 for team in organizedConfRecs:
   print(team['team'] + ": " + str(team['totalGames']['wins']) + "-" + str(team['totalGames']['losses']))
@@ -208,6 +387,7 @@ with open('conferenceData.csv', 'w', newline='') as csvfile:
             team['awayGames']['wins'],             # Away Wins
             team['awayGames']['losses']            # Away Losses
         ])
+"""
 
 # Newest Changes
 
