@@ -157,7 +157,8 @@ def retrieve_conf_info(records):
     }
 
   return game_info
-    
+
+print("Yes")
   # {
     # "id": 401636866,
     # "teams": [
