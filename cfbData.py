@@ -4,8 +4,8 @@ import csv
 # *~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~*
 # What to add next: 
 # for loop that would make a new list of the teams based on the conference the user inputs ** DONE ** 
-  # Add a function to rank the teams based on the current record
-  # Add a function to rank the teams based on the expected record
+# Add a function to rank the teams based on the current record
+# Add a function to rank the teams based on the expected record
 # lets store each conference in a separate file and/or list so we dont have to continuosly call the API
 # start the code for the machine learning - figure out what parameters with weights and algos we want to use
 # *~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~*
@@ -145,20 +145,85 @@ def retrieve_team_info(records):
     return team_info
 
 def retrieve_conf_info(records):
-  game_info = {}
+    game_info = []
 
-  for record in records['teams']:
-    team_name = record['school']
-    team_points = record['points']
+    for record in records['teams']:
+        team_name = record['school']
+        team_points = record['points']
+        
+        # Initialize a dictionary to hold stats
+        stats = {
+            'rushingTDs': 0,
+            'puntReturnYards': 0,
+            'puntReturns': 0,
+            'passingTDs': 0,
+            'kickReturnYards': 0,
+            'kickReturns': 0,
+            'kickingPoints': 0,
+            'tacklesForLoss': 0,
+            'defensiveTDs': 0,
+            'tackles': 0,
+            'sacks': 0,
+            'qbHurries': 0,
+            'passesDeflected': 0,
+            'possessionTime': 0,
+            'interceptions': 0,
+            'turnovers': 0,
+            'totalPenaltiesYards': 0,
+            'yardsPerRushAttempt': 0,
+            'rushingAttempts': 0,
+            'rushingYards': 0,
+            'yardsPerPass': 0,
+            'completionAttempts': 0,
+            'netPassingYards': 0,
+            'totalYards': 0,
+            'fourthDownEffects': '',
+            'thirdDownEffects': '',
+            'firstDowns': 0,
+        }
+
+        for info in record['stats']:
+            category = info['category']
+            stat = info['stat']
+            if category in stats:
+                stats[category] = stat
+        
+        # Append the team info along with its stats
+        game_info.append([
+            team_name, 
+            team_points, 
+            stats['rushingTDs'], 
+            stats['puntReturnYards'], 
+            stats['puntReturns'], 
+            stats['passingTDs'], 
+            stats['kickReturnYards'], 
+            stats['kickReturns'], 
+            stats['kickingPoints'], 
+            stats['tacklesForLoss'], 
+            stats['defensiveTDs'], 
+            stats['tackles'], 
+            stats['sacks'], 
+            stats['qbHurries'], 
+            stats['passesDeflected'], 
+            stats['possessionTime'], 
+            stats['interceptions'], 
+            stats['turnovers'], 
+            stats['totalPenaltiesYards'], 
+            stats['yardsPerRushAttempt'], 
+            stats['rushingAttempts'], 
+            stats['rushingYards'], 
+            stats['yardsPerPass'], 
+            stats['completionAttempts'], 
+            stats['netPassingYards'], 
+            stats['totalYards'], 
+            stats['fourthDownEffects'], 
+            stats['thirdDownEffects'], 
+            stats['firstDowns']
+        ])
     
-    game_info = {
-      'team': team_name,
-      'points': team_points
-    }
+    return game_info
 
-  return game_info
 
-print("Yes")
   # {
     # "id": 401636866,
     # "teams": [
@@ -170,20 +235,12 @@ print("Yes")
     #     "points": 35,
     #     "stats": [
     #       {
-    #         "category": "fumblesRecovered",
-    #         "stat": "0"
-    #       },
-    #       {
     #         "category": "rushingTDs",
     #         "stat": "2"
     #       },
     #       {
     #         "category": "puntReturnYards",
     #         "stat": "-3"
-    #       },
-    #       {
-    #         "category": "puntReturnTDs",
-    #         "stat": "0"
     #       },
     #       {
     #         "category": "puntReturns",
@@ -198,10 +255,6 @@ print("Yes")
     #         "stat": "13"
     #       },
     #       {
-    #         "category": "kickReturnTDs",
-    #         "stat": "0"
-    #       },
-    #       {
     #         "category": "kickReturns",
     #         "stat": "1"
     #       },
@@ -210,7 +263,7 @@ print("Yes")
     #         "stat": "3"
     #       },
     #       {
-    #         "category": "tacklesForLoss",
+    #         "category": "tacklesForLoss", ****
     #         "stat": "1"
     #       },
     #       {
@@ -239,10 +292,6 @@ print("Yes")
     #       },
     #       {
     #         "category": "interceptions",
-    #         "stat": "0"
-    #       },
-    #       {
-    #         "category": "fumblesLost",
     #         "stat": "0"
     #       },
     #       {
@@ -316,11 +365,13 @@ apiKey = str(input("Enter your API key: "))
 year = 2024
 seasonType = "regular"
 team = "UCF"
-confer = "B12"
+# team = str(input("Enter a team: "))
+
+confer = "B12" # confer = str(input("Enter a conference: "))
 
 # User Input
-# team = str(input("Enter a team: "))
-# confer = str(input("Enter a conference: "))
+
+
 
 # Talent Score
 # currentTalent = team_power_rank(year, team)
