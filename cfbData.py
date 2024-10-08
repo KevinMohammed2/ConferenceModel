@@ -7,10 +7,19 @@ import csv
 # Predictor for Conference Winner
 # which data to pull from
 # use record to be able to predict Match ups
-ACC = ['Boston College', 'California','Clemson', 'Duke', 'Florida State', 'Georgia Tech','Louisville', 'Hurricanes', 'NC State'
-       ,'North Carolina', 'Pittsburgh', 'Mustangs', 'Stanford', 'Syracuse', 'Virginia', 'Virginia Tech', 'Wake Forest', ]
-B12 = []
-SEC = []
+ACC = ['Boston College', 'California', 'Clemson', 'Duke', 'Florida State', 'Georgia Tech', 'Louisville', 'Miami', 
+       'NC State', 'North Carolina', 'Pittsburgh', 'SMU', 'Stanford', 'Syracuse', 'Virginia', 'Virginia Tech', 'Wake Forest']
+
+B12 = ['Arizona', 'Arizona State', 'Baylor', 'BYU', 'Cincinnati', 'Colorado', 'Houston', 'Iowa State', 
+       'Kansas', 'Kansas State', 'Oklahoma State', 'TCU', 'Texas Tech', 'UCF', 'Utah', 'West Virginia']
+
+SEC = ['Alabama', 'Arkansas', 'Auburn', 'Florida', 'Georgia', 'Kentucky', 'LSU', 'Mississippi State', 
+       'Missouri', 'Oklahoma', 'Ole Miss', 'South Carolina', 'Tennessee', 'Texas', 'Texas A&M', 'Vanderbilt']
+
+B1G = ['Illinois', 'Indiana', 'Iowa', 'Maryland', 'Michigan', 'Michigan State', 'Minnesota', 'Nebraska', 'Northwestern', 'Ohio State',
+       'Oregon', 'Penn State', 'Purdue', 'Rutgers', 'UCLA', 'USC', 'Washington', 'Wisconsin']
+
+PAC = ['Oregon State', 'Washington State']
 
 # ranking big 12 schools from first to last based on current record 
 # Ask user what they would like to know and answer the question using the ML model 
