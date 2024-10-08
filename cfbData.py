@@ -2,50 +2,15 @@ import requests
 import csv
 
 # *~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~*
-# What to add next: 
-# for loop that would make a new list of the teams based on the conference the user inputs ** DONE ** 
-# Add a function to rank the teams based on the current record
-# Add a function to rank the teams based on the expected record
-# lets store each conference in a separate file and/or list so we dont have to continuosly call the API
-# start the code for the machine learning - figure out what parameters with weights and algos we want to use
 # *~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~**~~~*~~~*~~~*~~~*
 
 # Predictor for Conference Winner
 # which data to pull from
 # use record to be able to predict Match ups
-
-""" 
-API Calls to Use: 
-- /records
-- /games
-- /talent
-- /
-- /
-- /
-- /
-- /
-
-"""
-
-# Steps to run: 
-
-"""
-1. Open the API 
-2. Use the API Key to retrive the data
-3. Come up with algo to predict the heisman 
-
-Questions: 
-How to use the API 
-import requests
-
-api.collegefootballdata.com/calendar
-"""
-
-
-# parameters = year, team, conferences 
-# example: year = 2024, team = 'UCF', conference = B12
-# print out only
-
+ACC = ['Boston College', 'California','Clemson', 'Duke', 'Florida State', 'Georgia Tech','Louisville', 'Hurricanes', 'NC State'
+       ,'North Carolina', 'Pittsburgh', 'Mustangs', 'Stanford', 'Syracuse', 'Virginia', 'Virginia Tech', 'Wake Forest', ]
+B12 = []
+SEC = []
 
 # ranking big 12 schools from first to last based on current record 
 # Ask user what they would like to know and answer the question using the ML model 
@@ -145,8 +110,6 @@ def retrieve_team_info(records):
     return team_info
 
 def retrieve_conf_info(records):
-    game_info = []
-
     for record in records['teams']:
         team_name = record['school']
         team_points = record['points']
@@ -177,8 +140,8 @@ def retrieve_conf_info(records):
             'completionAttempts': 0,
             'netPassingYards': 0,
             'totalYards': 0,
-            'fourthDownEffects': '',
-            'thirdDownEffects': '',
+            'fourthDownEffects': 0,
+            'thirdDownEffects': 0,
             'firstDowns': 0,
         }
 
@@ -189,170 +152,42 @@ def retrieve_conf_info(records):
                 stats[category] = stat
         
         # Append the team info along with its stats
-        game_info.append([
-            team_name, 
-            team_points, 
-            stats['rushingTDs'], 
-            stats['puntReturnYards'], 
-            stats['puntReturns'], 
-            stats['passingTDs'], 
-            stats['kickReturnYards'], 
-            stats['kickReturns'], 
-            stats['kickingPoints'], 
-            stats['tacklesForLoss'], 
-            stats['defensiveTDs'], 
-            stats['tackles'], 
-            stats['sacks'], 
-            stats['qbHurries'], 
-            stats['passesDeflected'], 
-            stats['possessionTime'], 
-            stats['interceptions'], 
-            stats['turnovers'], 
-            stats['totalPenaltiesYards'], 
-            stats['yardsPerRushAttempt'], 
-            stats['rushingAttempts'], 
-            stats['rushingYards'], 
-            stats['yardsPerPass'], 
-            stats['completionAttempts'], 
-            stats['netPassingYards'], 
-            stats['totalYards'], 
-            stats['fourthDownEffects'], 
-            stats['thirdDownEffects'], 
-            stats['firstDowns']
-        ])
-    
-    return game_info
-
-
-  # {
-    # "id": 401636866,
-    # "teams": [
-    #   {
-    #     "schoolId": 2116,
-    #     "school": "UCF",
-    #     "conference": "Big 12",
-    #     "homeAway": "away",
-    #     "points": 35,
-    #     "stats": [
-    #       {
-    #         "category": "rushingTDs",
-    #         "stat": "2"
-    #       },
-    #       {
-    #         "category": "puntReturnYards",
-    #         "stat": "-3"
-    #       },
-    #       {
-    #         "category": "puntReturns",
-    #         "stat": "1"
-    #       },
-    #       {
-    #         "category": "passingTDs",
-    #         "stat": "3"
-    #       },
-    #       {
-    #         "category": "kickReturnYards",
-    #         "stat": "13"
-    #       },
-    #       {
-    #         "category": "kickReturns",
-    #         "stat": "1"
-    #       },
-    #       {
-    #         "category": "kickingPoints",
-    #         "stat": "3"
-    #       },
-    #       {
-    #         "category": "tacklesForLoss", ****
-    #         "stat": "1"
-    #       },
-    #       {
-    #         "category": "defensiveTDs",
-    #         "stat": "0"
-    #       },
-    #       {
-    #         "category": "tackles",
-    #         "stat": "32"
-    #       },
-    #       {
-    #         "category": "sacks",
-    #         "stat": "0"
-    #       },
-    #       {
-    #         "category": "qbHurries",
-    #         "stat": "3"
-    #       },
-    #       {
-    #         "category": "passesDeflected",
-    #         "stat": "4"
-    #       },
-    #       {
-    #         "category": "possessionTime",
-    #         "stat": "32:54"
-    #       },
-    #       {
-    #         "category": "interceptions",
-    #         "stat": "0"
-    #       },
-    #       {
-    #         "category": "turnovers",
-    #         "stat": "0"
-    #       },
-    #       {
-    #         "category": "totalPenaltiesYards",
-    #         "stat": "5-45"
-    #       },
-    #       {
-    #         "category": "yardsPerRushAttempt",
-    #         "stat": "5.4"
-    #       },
-    #       {
-    #         "category": "rushingAttempts",
-    #         "stat": "54"
-    #       },
-    #       {
-    #         "category": "rushingYards",
-    #         "stat": "289"
-    #       },
-    #       {
-    #         "category": "yardsPerPass",
-    #         "stat": "10.5"
-    #       },
-    #       {
-    #         "category": "completionAttempts",
-    #         "stat": "13-22"
-    #       },
-    #       {
-    #         "category": "netPassingYards",
-    #         "stat": "230"
-    #       },
-    #       {
-    #         "category": "totalYards",
-    #         "stat": "519"
-    #       },
-    #       {
-    #         "category": "fourthDownEff",
-    #         "stat": "0-0"
-    #       },
-    #       {
-    #         "category": "thirdDownEff",
-    #         "stat": "11-16"
-    #       },
-    #       {
-    #         "category": "firstDowns",
-    #         "stat": "30"
-    #       }
-    #     ]
-    #   }
-    # }
-    
-
-    
+        return {
+            'team_name' : team_name,
+            'team_points': team_points,
+            'rushingTDs': stats['rushingTDs'],
+            'puntReturnYards': stats['puntReturnYards'],
+            'puntReturns': stats['puntReturns'],
+            'passingTDs': stats['passingTDs'],
+            'kickReturnYards': stats['kickReturnYards'],
+            'kickReturns': stats['kickReturns'],
+            'kickingPoints': stats['kickingPoints'],
+            'tacklesForLoss': stats['tacklesForLoss'],
+            'defensiveTDs': stats['defensiveTDs'],
+            'tackles': stats['tackles'],
+            'sacks': stats['sacks'],
+            'qbHurries': stats['qbHurries'],
+            'passesDeflected': stats['passesDeflected'],
+            'possessionTime': stats['possessionTime'],
+            'interceptions': stats['interceptions'],
+            'turnovers': stats['turnovers'],
+            'totalPenaltiesYards': stats['totalPenaltiesYards'],
+            'yardsPerRushAttempt': stats['yardsPerRushAttempt'],
+            'rushingAttempts': stats['rushingAttempts'],
+            'rushingYards': stats['rushingYards'],
+            'yardsPerPass': stats['yardsPerPass'],
+            'completionAttempts': stats['completionAttempts'],
+            'netPassingYards': stats['netPassingYards'],
+            'totalYards': stats['totalYards'],
+            'fourthDownEffects': stats['fourthDownEffects'],
+            'thirdDownEffects': stats['thirdDownEffects'],
+            'firstDowns': stats['firstDowns']
+        }
 
 # Specific Conference will be an array of dictionaries
 
 # power ranking
-def team_power_rank(year, team):
+def team_power_rank(year):
   talents = get_talent(year)
   for talent in talents:
     if talent['school'] == team:
@@ -364,28 +199,14 @@ apiKey = str(input("Enter your API key: "))
 
 year = 2024
 seasonType = "regular"
-team = "UCF"
+team = 'UCF'
 # team = str(input("Enter a team: "))
 
 confer = "B12" # confer = str(input("Enter a conference: "))
 
-# User Input
 
-
-
-# Talent Score
-# currentTalent = team_power_rank(year, team)
-
-# Specific Team Record
-# oneTeamRec = get_singleTeamRec_data(year, team, confer)
-
-# Newly Sorted
-# newRecords = retrieve_team_info(oneTeamRec)
-
-# Specific Conference Record
-# make organizedConfRecs an array of dictionaries that would store the conf info that we pull from this function
-
-# Specific Conference Call to get all game information
+# Talent Score *********************************
+# talentScore = team_power_rank(year, confer)
 
 organizedTeamInfo = []
 seasonGameData = get_specificGame_data(year, seasonType, team, apiKey)
@@ -393,11 +214,12 @@ seasonGameData = get_specificGame_data(year, seasonType, team, apiKey)
 
 for game in seasonGameData:
   gameInfo = retrieve_conf_info(game)
-  organizedTeamInfo.append(gameInfo)
+  if gameInfo['team_name'] == team:
+    organizedTeamInfo.append(gameInfo)
 
-print(organizedTeamInfo)
+# print(organizedTeamInfo)
 
-"""
+
 organizedConfRecs = []
 specificConferenceRec = get_specificConference_data(year, confer, apiKey)
 
@@ -405,27 +227,24 @@ specificConferenceRec = get_specificConference_data(year, confer, apiKey)
 for teamData in specificConferenceRec:
     teamInfo = retrieve_team_info([teamData])
     organizedConfRecs.append(teamInfo)
-    
-# print(organizedConfRecs)
-"""
 
 # sorted by total wins:
 # sorted() sorts in ascending order
 # key = lambda x: x['totalGames']['wins'] where lambda is a an anonymous function that will be used to sort by the wins
 # reverse = True will sort in descending order
-"""
-organizedConfRecs = sorted(organizedConfRecs, key=lambda x: (x['totalGames']['wins'], x['totalGames']['losses']), reverse=True)
-for team in organizedConfRecs:
-  print(team['team'] + ": " + str(team['totalGames']['wins']) + "-" + str(team['totalGames']['losses']))
+
+# *****************************************************
+# organizedConfRecs = sorted(organizedConfRecs, key=lambda x: (x['totalGames']['wins'], x['totalGames']['losses']), reverse=True)
+# for team in organizedConfRecs:
+  # print(team['team'] + ": " + str(team['totalGames']['wins']) + "-" + str(team['totalGames']['losses']))
 
 # Put this data into a .csv
+
 with open('conferenceData.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerow(['Team', 'Expected Wins', 'Total Wins', 'Total Losses', 
-                     'Conference Wins', 'Conference Losses', 
-                     'Home Wins', 'Home Losses', 
-                     'Away Wins', 'Away Losses'])
-    
+    writer.writerow(['Team', 'Expected Wins', 'Total Wins', 'Total Losses', 'Conference Wins', 'Conference Losses', 
+                     'Home Wins', 'Home Losses', 'Away Wins', 'Away Losses'])
+
     for team in organizedConfRecs:
         writer.writerow([
             team['team'],                          # Team name
@@ -439,19 +258,45 @@ with open('conferenceData.csv', 'w', newline='') as csvfile:
             team['awayGames']['wins'],             # Away Wins
             team['awayGames']['losses']            # Away Losses
         ])
-"""
 
-# Newest Changes
-
-# All Team Records Call
-# organizedRecs = []
-# # Specific Conference will be an array of dictionaries
-# specificRec = get_allTeamRec_data(year)
-# # traverse through specificConferenceRec and store in organizedConfRecs
-# for teamData in specificRec:
-#   teamInfo = retrieve_team_info([teamData])
-#   organizedRecs.append(teamInfo)
-# print(organizedRecs)
-
-
-# allTeamsRec = get_allTeamRec_data(year)
+with open('teamData.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    
+    writer.writerow(['Team Name', 'Team Points', 'Rushing TDs', 'Punt Return Yards', 'Punt Returns', 'Passing TDs', 
+                     'Kick Return Yards', 'Kick Returns', 'Kicking Points', 'Tackles For Loss',
+                     'Defensive TDs', 'Tackles', 'Sacks', 'QB Hurries', 'Passes Deflected', 'Possession Time', 'Interceptions', 
+                     'Turnovers', 'Total Penalties Yards', 'Yards Per Rush Attempt', 'Rushing Attempts', 'Rushing Yards', 
+                     'Yards Per Pass', 'Completion Attempts', 'Net Passing Yards', 'Total Yards', 'Fourth Down Effects', 
+                     'Third Down Effects', 'First Downs'])
+    for team in organizedTeamInfo:
+        writer.writerow([
+          team['team_name'],
+          team['team_points'],
+          team['rushingTDs'],
+          team['puntReturnYards'],
+          team['puntReturns'],
+          team['passingTDs'],
+          team['kickReturnYards'],
+          team['kickReturns'],
+          team['kickingPoints'],
+          team['tacklesForLoss'],
+          team['defensiveTDs'],
+          team['tackles'],
+          team['sacks'],
+          team['qbHurries'],
+          team['passesDeflected'],
+          team['possessionTime'],
+          team['interceptions'],
+          team['turnovers'],
+          team['totalPenaltiesYards'],
+          team['yardsPerRushAttempt'],
+          team['rushingAttempts'],
+          team['rushingYards'],
+          team['yardsPerPass'],
+          team['completionAttempts'],
+          team['netPassingYards'],
+          team['totalYards'],
+          team['fourthDownEffects'],
+          team['thirdDownEffects'],
+          team['firstDowns']
+        ])
